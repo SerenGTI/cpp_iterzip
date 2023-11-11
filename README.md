@@ -65,5 +65,5 @@ Simply include the header file `iterzip.hpp`
 
 ```bash
 $ gcc main.cpp -o main -lstdc++ -std=c++17
-$ 
+$ ./main
 ```
