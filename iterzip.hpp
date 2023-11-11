@@ -81,8 +81,8 @@ template<typename... Iterators>
 struct iterator_traits
 {
     using value_type        = std::tuple<typename iterator_traits<Iterators>::value_type ...>;
-    using pointer           = std::tuple<typename iterator_traits<Iterators>::pointer ...>;
     using reference         = std::tuple<typename iterator_traits<Iterators>::reference ...>;
+    using pointer           = reference*;
     using difference_type   = std::ptrdiff_t;
     using iterator_category = detail::cat_trait_t<Iterators...>;
 };
