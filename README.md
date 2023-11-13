@@ -1,13 +1,14 @@
 # iterzip for C++17
 
-Simplifies iteration over multiple containers at once.
 Header-only implementation for a python-style `zip` iterator.
+Simplifies iteration over multiple containers at once.
 Supports all standard iterator categories and conforms to `std::iterator_traits`.
 
 ## Usage
 
 Supports all iterator-conforming containers.
 This, of course, includes all STL containers such as `std::array`, `std::vector`, `std::list` etc.
+You can `zip` arbitrary many containers and iterate them all at once!
 
 ```c++
 #include "iterzip.hpp"
@@ -29,7 +30,7 @@ Will produce the following output
 5, 10
 ```
 
-### Containers with different sizes
+### Containers of different size
 For containers with different sizes, the smallest container determines the length of of the `zip` iteration.
 
 ```c++
@@ -46,8 +47,9 @@ Will produce the following output
 2, 6
 ```
 
+Specifically, two `zip` iterators are equal (`operator!=` is false) as soon as at least one of the individual iterators are equal. 
 
-### Higher categories
+### Higher iterator acategories
 
 If the containers support it, it is possible to use higher iterator categories' functions.
 For example, the `iterator::operator[]` on two `std::array`s:
@@ -74,7 +76,7 @@ using cat = typename iterzip::iterator_traits<T1,T2>::iterator_category;
 ```
 
 The zipped `value_type` is a `std::tuple<X, ...>` where the `X` are the individual iterators' `value_type`.
-The `reference` typedef is `std::tuple<X&, ...>` and `pointer` is mapped to `value_type*`.
+The `reference` typedef is `std::tuple<X&, ...>` and `pointer` is mapped to `reference*`.
 
 ## Compiling / Building / Including
 
@@ -85,3 +87,5 @@ To build the example file provided in the repository, run
 $ gcc main.cpp -o main -lstdc++ -std=c++17
 $ ./main
 ```
+
+The implementation of iterzip uses fold expressions, which are only available after C++17.
